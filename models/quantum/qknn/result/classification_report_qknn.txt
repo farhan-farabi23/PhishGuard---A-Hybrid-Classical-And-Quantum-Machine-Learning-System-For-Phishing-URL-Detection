@@ -1,0 +1,11 @@
+Best k (val accuracy): 5
+Test accuracy:         0.7780
+
+              precision    recall  f1-score   support
+
+         bad       0.67      0.43      0.52       285
+        good       0.80      0.92      0.86       715
+
+    accuracy                           0.78      1000
+   macro avg       0.74      0.67      0.69      1000
+weighted avg       0.76      0.78      0.76      1000

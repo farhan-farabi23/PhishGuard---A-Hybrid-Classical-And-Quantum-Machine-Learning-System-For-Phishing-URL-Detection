@@ -1,0 +1,11 @@
+Best k (3-fold CV): 3
+Test accuracy:      0.9186
+
+              precision    recall  f1-score   support
+
+         bad       0.87      0.84      0.85      2847
+        good       0.94      0.95      0.94      7153
+
+    accuracy                           0.92     10000
+   macro avg       0.90      0.90      0.90     10000
+weighted avg       0.92      0.92      0.92     10000
