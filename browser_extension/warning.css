@@ -1,0 +1,183 @@
+/* PhishGuard warning page — standalone, no CDN dependencies */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 50% 0%, #1a0505 0%, #0a0a0a 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #e0e0e0;
+}
+
+.page {
+  width: 100%;
+  max-width: 580px;
+  padding: 24px;
+}
+
+.card {
+  background: #1a1a2e;
+  border: 2px solid #dc3545;
+  border-radius: 20px;
+  padding: 48px 40px 36px;
+  text-align: center;
+  box-shadow:
+    0 8px 60px rgba(220, 53, 69, 0.2),
+    0 0 0 1px rgba(220, 53, 69, 0.08);
+  animation: fadein 0.35s ease;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.shield {
+  font-size: 72px;
+  margin-bottom: 20px;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+
+h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #dc3545;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  color: #999;
+  font-size: 14px;
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+
+/* Stat row */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.stat {
+  background: #0d0d1a;
+  border: 1px solid #2a2a4a;
+  border-radius: 12px;
+  padding: 16px 22px;
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.stat-val {
+  font-size: 26px;
+  font-weight: 700;
+  color: #e0e0e0;
+}
+
+.stat-val.danger { color: #dc3545; }
+
+.stat-lbl {
+  font-size: 10px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+/* URL box */
+.url-box {
+  background: #0d0d1a;
+  border-left: 3px solid #dc3545;
+  border-radius: 0 8px 8px 0;
+  padding: 13px 16px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.url-lbl {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #dc3545;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.url-txt {
+  display: block;
+  font-size: 12px;
+  color: #888;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.btn-safe {
+  background: #198754;
+  color: white;
+  border: none;
+  padding: 13px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.18s;
+}
+
+.btn-safe:hover { background: #157347; }
+
+.btn-risk {
+  background: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  padding: 13px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.18s;
+}
+
+.btn-risk:hover { background: rgba(220, 53, 69, 0.1); }
+
+/* Footer */
+.footer-links {
+  font-size: 11px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.footer-links a {
+  color: #6c21ff;
+  text-decoration: none;
+}
+
+.footer-links a:hover { text-decoration: underline; }
+
+@media (max-width: 480px) {
+  .card { padding: 28px 20px 24px; }
+  .page { padding: 16px; }
+  .stat { padding: 12px 14px; min-width: 80px; }
+  .stat-val { font-size: 20px; }
+  .btn-safe, .btn-risk { padding: 11px 18px; font-size: 13px; }
+}

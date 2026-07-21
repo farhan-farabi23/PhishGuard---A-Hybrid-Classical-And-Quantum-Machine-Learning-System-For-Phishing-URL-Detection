@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self';">
+  <title>PhishGuard — Dangerous Page Blocked</title>
+  <link rel="stylesheet" href="warning.css">
+</head>
+<body>
+
+  <div class="page">
+    <div class="card">
+
+      <div class="shield" aria-hidden="true">⚠️</div>
+
+      <h1>Phishing Page Blocked</h1>
+      <p class="subtitle">
+        PhishGuard has detected that this URL is likely a phishing site and
+        blocked it to protect you.
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-val danger" id="stat-votes">—</span>
+          <span class="stat-lbl">Models Flagged</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" id="stat-total">—</span>
+          <span class="stat-lbl">Total Models</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val danger" id="stat-pct">—</span>
+          <span class="stat-lbl">Risk Score</span>
+        </div>
+      </div>
+
+      <div class="url-box">
+        <span class="url-lbl">Blocked URL</span>
+        <span class="url-txt" id="stat-url">—</span>
+      </div>
+
+      <div class="actions">
+        <button class="btn-safe" id="btn-back">← Go Back (Safe)</button>
+        <button class="btn-risk" id="btn-proceed">Proceed Anyway</button>
+      </div>
+
+      <div class="footer-links">
+        Powered by <strong>PhishGuard</strong> · Quantum-Classical ML ·
+        <a href="http://localhost:5000" target="_blank" rel="noopener noreferrer">Open Web App</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="warning.js"></script>
+
+</body>
+</html>

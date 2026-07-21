@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="icons/icon48.png" alt="" class="logo-icon">
+      <span>PhishGuard</span>
+    </div>
+    <span class="badge">ML + Quantum</span>
+  </header>
+
+  <div class="url-bar">
+    <span id="current-url">—</span>
+  </div>
+
+  <!-- Scanning state -->
+  <div id="state-scanning" class="state">
+    <div class="spin-wrap">
+      <div class="spinner"></div>
+    </div>
+    <p class="scanning-label">Scanning with 6 ML models…</p>
+  </div>
+
+  <!-- Live region: announces state changes to screen readers -->
+  <div id="sr-live" aria-live="polite" aria-atomic="true" class="visually-hidden"
+       style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"></div>
+
+  <!-- Result state -->
+  <div id="state-result" class="state hidden">
+    <div class="verdict-icon" id="verdict-icon"></div>
+    <div class="verdict-label" id="verdict-label"></div>
+    <div class="vote-track">
+      <div class="vote-fill" id="vote-fill"></div>
+    </div>
+    <div class="vote-text" id="vote-text"></div>
+    <div class="model-row" id="model-row"></div>
+  </div>
+
+  <!-- Error state -->
+  <div id="state-error" class="state hidden">
+    <div class="err-icon">⚡</div>
+    <p class="err-msg" id="err-msg">Cannot reach PhishGuard server.</p>
+    <p class="err-hint" id="err-hint">Start the Flask app first:<br><code>python app.py</code></p>
+  </div>
+
+  <footer>
+    <a id="webapp-link" href="http://localhost:5000" target="_blank">
+      Open PhishGuard Web App →
+    </a>
+    <button id="rescan-btn" class="rescan" title="Rescan this URL" aria-label="Rescan this URL">↺</button>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
