@@ -1,0 +1,231 @@
+﻿/* ============================================================================
+   Auth Pages Styling
+   ============================================================================ */
+:root {
+    --color-bg: #0a1422;
+    --color-bg-dark: #050b15;
+    --color-accent: #00d9ff;
+    --color-accent-dark: #0099cc;
+    --color-text: #ffffff;
+    --color-text-muted: #a0aec0;
+    --color-border: #1a3a4a;
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0a1422 0%, #0f1f33 100%);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-page::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(0, 217, 255, 0.1), transparent);
+    border-radius: 50%;
+    top: -100px;
+    left: -100px;
+    z-index: 0;
+}
+
+.auth-page::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 153, 204, 0.1), transparent);
+    border-radius: 50%;
+    bottom: -150px;
+    right: -150px;
+    z-index: 0;
+}
+
+.auth-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 450px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.auth-box {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.auth-box:hover {
+    border-color: rgba(0, 217, 255, 0.4);
+    box-shadow: 0 12px 48px rgba(0, 217, 255, 0.15);
+}
+
+.auth-header {
+    margin-bottom: 2rem;
+}
+
+.auth-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.auth-subtitle {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.form-input {
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 6px;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 12px rgba(0, 217, 255, 0.2);
+}
+
+.form-input::placeholder {
+    color: #7a8ba0;
+}
+
+.form-hint {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+}
+
+.btn-large {
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-family: inherit;
+    width: 100%;
+}
+
+.btn-large:hover {
+    background: var(--color-accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+}
+
+.auth-footer {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+}
+
+.auth-footer a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.auth-footer a:hover {
+    color: var(--color-accent-dark);
+    text-decoration: underline;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.alert-danger,
+.alert-error {
+    background: rgba(255, 67, 67, 0.1);
+    border: 1px solid rgba(255, 67, 67, 0.3);
+    color: #ff6b6b;
+}
+
+.alert-success {
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    color: #4caf50;
+}
+
+/* ============================================================================
+   Responsive Design
+   ============================================================================ */
+@media (max-width: 480px) {
+    .auth-page {
+        padding: 1rem;
+    }
+
+    .auth-box {
+        padding: 1.5rem;
+    }
+
+    .auth-title {
+        font-size: 1.3rem;
+    }
+
+    .auth-container {
+        max-width: 100%;
+    }
+
+    .form-input {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .btn-large {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard - Protecting Your Digital World, 24/7</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+    <!-- Background globe effects -->
+    <div class="background-orbs">
+        <div class="orb orb-left"></div>
+        <div class="orb orb-right"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <span class="logo-icon">🛡️</span>
+                <a href="{{ url_for('index') }}" class="logo-text">PHISHGUARD</a>
+            </div>
+
+            {% if current_user.is_authenticated %}
+              <!-- Authenticated: Show feature menu -->
+              <ul class="nav-menu" id="navMenu">
+                <li><a href="{{ url_for('index') }}" class="nav-link {% if request.path == '/' %}active{% endif %}">HOME</a></li>
+                <li><a href="/analyser" class="nav-link {% if request.path == '/analyser' %}active{% endif %}">ANALYSER</a></li>
+                <li><a href="/batch" class="nav-link {% if request.path == '/batch' %}active{% endif %}">BATCH</a></li>
+                <li><a href="/dashboard" class="nav-link {% if request.path == '/dashboard' %}active{% endif %}">DASHBOARD</a></li>
+                <li><a href="/visualizer" class="nav-link {% if request.path == '/visualizer' %}active{% endif %}">VISUALIZER</a></li>
+              </ul>
+
+              <div class="nav-auth">
+                <span class="user-avatar" title="{{ current_user.name }}">{{ current_user.name[0].upper() }}</span>
+                <form action="{{ url_for('auth.logout') }}" method="post" style="display: inline;">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="nav-button">SIGN OUT</button>
+                </form>
+              </div>
+            {% else %}
+              <!-- Unauthenticated: Show minimal menu -->
+              <ul class="nav-menu" id="navMenu">
+                <li><a href="/#services" class="nav-link">SERVICES</a></li>
+                <li><a href="/#about" class="nav-link">ABOUT</a></li>
+                <li><a href="/#features" class="nav-link">FEATURES</a></li>
+              </ul>
+
+              <div class="nav-auth">
+                <a href="{{ url_for('auth.login') }}" class="nav-link">SIGN IN</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary">REGISTER</a>
+              </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">PROTECTING YOUR<br>DIGITAL WORLD, 24/7</h1>
+            <p class="hero-subtitle">PhishGuard provides round-the-clock cybersecurity solutions to keep your data and systems safe.</p>
+            {% if not current_user.is_authenticated %}
+              <div class="hero-buttons">
+                <a href="/auth/register" class="btn btn-primary">CREATE ACCOUNT</a>
+                <a href="/auth/login" class="btn btn-secondary">SIGN IN</a>
+              </div>
+            {% endif %}
+        </div>
+        <div class="hero-visual">
+            <div class="globe-container">
+                <svg class="globe" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="globeGradient" cx="35%" cy="35%">
+                            <stop offset="0%" style="stop-color:#00ffff;stop-opacity:0.8" />
+                            <stop offset="70%" style="stop-color:#0099ff;stop-opacity:0.4" />
+                            <stop offset="100%" style="stop-color:#001a4d;stop-opacity:0.2" />
+                        </radialGradient>
+                    </defs>
+                    <!-- Globe sphere -->
+                    <circle cx="100" cy="100" r="90" fill="url(#globeGradient)" stroke="#00ffff" stroke-width="1" opacity="0.9"/>
+                    <!-- Grid pattern -->
+                    <g stroke="#00ffff" stroke-width="0.5" opacity="0.3">
+                        <circle cx="100" cy="100" r="30" fill="none"/>
+                        <circle cx="100" cy="100" r="60" fill="none"/>
+                        <circle cx="100" cy="100" r="80" fill="none"/>
+                    </g>
+                    <!-- Vertical lines -->
+                    <g stroke="#00ffff" stroke-width="0.3" opacity="0.2">
+                        <line x1="100" y1="20" x2="100" y2="180"/>
+                        <line x1="70" y1="25" x2="130" y2="175"/>
+                        <line x1="130" y1="25" x2="70" y2="175"/>
+                    </g>
+                    <!-- Glowing nodes -->
+                    <circle cx="100" cy="40" r="2" fill="#00ffff"/>
+                    <circle cx="140" cy="80" r="2" fill="#00ffff"/>
+                    <circle cx="100" cy="120" r="2.5" fill="#00ffff"/>
+                    <circle cx="60" cy="100" r="2" fill="#00ffff"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-container">
+            <h2>OUR SERVICES</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <span class="service-number">01</span>
+                    <h4>ADVANCED TECHNOLOGY</h4>
+                    <p>AI-powered detection identifies threats fast, keeping you ahead of risks.</p>
+                </div>
+                <div class="service-item">
+                    <span class="service-number">02</span>
+                    <h4>CERTIFIED EXPERTS</h4>
+                    <p>Our team brings deep industry experience and precision to every analysis.</p>
+                </div>
+                <div class="service-item">
+                    <span class="service-number">03</span>
+                    <h4>24/7 MONITORING</h4>
+                    <p>Around-the-clock surveillance ensures constant protection and rapid response.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2>KEY FEATURES</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="feature-number">01</span>
+                    <h4>Real-Time Detection</h4>
+                    <p>Identify phishing threats instantly as they emerge with our AI-powered engine.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-number">02</span>
+                    <h4>Quantum-Enhanced Analysis</h4>
+                    <p>Leverage quantum computing for superior pattern recognition and accuracy.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-number">03</span>
+                    <h4>Ensemble Intelligence</h4>
+                    <p>9 specialized ML models work together for unmatched detection confidence.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-number">04</span>
+                    <h4>User-Friendly Interface</h4>
+                    <p>Simple, intuitive dashboard for easy URL scanning and threat assessment.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-number">05</span>
+                    <h4>Detailed Analytics</h4>
+                    <p>Comprehensive reporting and historical tracking of all scanned URLs.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-number">06</span>
+                    <h4>Batch Processing</h4>
+                    <p>Scan up to 1000 URLs simultaneously with our batch processing capability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>YOUR TRUSTED PARTNER IN<br>CYBERSECURITY EXCELLENCE</h2>
+            <p>PhishGuard combines cutting-edge artificial intelligence with quantum computing to detect and prevent phishing attacks in real time. Our hybrid approach uses classical machine learning and quantum algorithms to analyze URLs with unprecedented accuracy, protecting your users and data from sophisticated threats.</p>
+            <div class="about-stats">
+                <div class="stat">
+                    <span class="stat-number">99.8%</span>
+                    <span class="stat-label">Detection Accuracy</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">&lt;100ms</span>
+                    <span class="stat-label">Response Time</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">9</span>
+                    <span class="stat-label">ML Models</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    {% if not current_user.is_authenticated %}
+      <section class="cta">
+        <h2>Ready to Secure Your Digital Environment?</h2>
+        <p>Join thousands of organizations using PhishGuard to protect against phishing attacks</p>
+        <div class="cta-buttons">
+          <a href="/auth/register" class="btn btn-primary btn-large">START FREE TRIAL</a>
+        </div>
+      </section>
+    {% endif %}
+
+    <!-- Footer -->
+    {% if current_user.is_authenticated %}
+      <!-- Authenticated Footer (same as base.html) -->
+      <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>PHISHGUARD</h4>
+            <p>Advanced cybersecurity through AI and quantum computing</p>
+          </div>
+          <div class="footer-section">
+            <h4>QUICK LINKS</h4>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="{{ url_for('analyser') }}">Analyser</a></li>
+              <li><a href="{{ url_for('batch') }}">Batch Scanner</a></li>
+              <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>SUPPORT</h4>
+            <p>Email: support@phishguard.io</p>
+            <p>24/7 Protection</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 PhishGuard. All rights reserved.</p>
+        </div>
+      </footer>
+    {% else %}
+      <!-- Unauthenticated Footer (minimal) -->
+      <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>PHISHGUARD</h4>
+            <p>Advanced cybersecurity through AI and quantum computing</p>
+          </div>
+          <div class="footer-section">
+            <h4>QUICK LINKS</h4>
+            <ul>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#features">Features</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 PhishGuard. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+        </div>
+      </footer>
+    {% endif %}
+</body>
+</html>

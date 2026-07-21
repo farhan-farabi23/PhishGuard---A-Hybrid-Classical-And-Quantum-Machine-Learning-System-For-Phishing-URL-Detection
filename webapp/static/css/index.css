@@ -1,0 +1,119 @@
+/* ──────────────────────────────────────────────────── */
+/* INDEX.CSS — URL Analyser Page Styles              */
+/* ──────────────────────────────────────────────────── */
+:root {
+  --color-bg: #0a1422;
+  --color-accent: #00d9ff;
+  --color-accent-dark: #0099cc;
+  --color-text: #ffffff;
+  --color-text-muted: #a0aec0;
+  --color-border: #1a3a4a;
+  --color-success: #4caf50;
+  --color-danger: #ff6b6b;
+  --color-warning: #ffa500;
+}
+
+/* ── Verdict Banner ────────────────────────────────── */
+.verdict-banner {
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(0, 153, 204, 0.1));
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  color: var(--color-text);
+}
+
+.verdict-banner.good {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(56, 142, 60, 0.1));
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.verdict-banner.bad {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(229, 57, 53, 0.1));
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+.verdict-icon {
+  line-height: 1;
+  font-size: 3rem;
+}
+
+.verdict-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.verdict-sub {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+/* ── URL Dissector ─────────────────────────────────── */
+.url-dissector {
+  font-size: 1rem;
+  line-height: 2.2;
+  word-break: break-all;
+  color: var(--color-text);
+}
+
+.url-part {
+  display: inline-block;
+  padding: 0.15rem 0.35rem;
+  border-radius: 3px;
+  margin: 0 1px;
+  cursor: default;
+  border-bottom: 2px solid transparent;
+  transition: opacity 0.15s;
+  font-size: 0.95rem;
+}
+
+.url-part:hover {
+  opacity: 0.8;
+}
+
+.url-safe {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.url-danger {
+  background: rgba(255, 107, 107, 0.2);
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.url-warn {
+  background: rgba(255, 165, 0, 0.2);
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+}
+
+.url-neutral {
+  background: rgba(160, 174, 192, 0.2);
+  border-color: var(--color-text-muted);
+  color: var(--color-text-muted);
+}
+
+/* ── List Group ────────────────────────────────────── */
+.list-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-group-flush > .list-group-item {
+  padding: 0.75rem 0;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+.list-group-flush > .list-group-item:last-child {
+  border-bottom: none;
+}
+
+.list-group-flush > .list-group-item:hover {
+  background: rgba(0, 217, 255, 0.05);
+}

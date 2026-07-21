@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Account Settings — PhishGuard{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12 col-md-9 col-lg-7" style="margin: 0 auto;">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h2 class="mb-0">⚙️ ACCOUNT SETTINGS</h2>
+      <a href="{{ url_for('auth.profile') }}" class="btn btn-outline-light btn-sm">
+        ← PROFILE
+      </a>
+    </div>
+
+    <!-- Account information (read-only) -->
+    <div class="card mb-4">
+      <div class="card-header">ACCOUNT INFORMATION</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-sm-6">
+            <label class="form-label text-muted small">Display name</label>
+            <input type="text" class="form-control" value="{{ current_user.name | e }}" readonly>
+          </div>
+          <div class="col-sm-6">
+            <label class="form-label text-muted small">Email address</label>
+            <input type="email" class="form-control" value="{{ current_user.email | e }}" readonly>
+          </div>
+        </div>
+        <p class="text-muted small mt-3 mb-0">
+          Name and email are managed by your Google account and cannot be changed here.
+        </p>
+      </div>
+    </div>
+
+    <!-- Account Status -->
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-header bg-transparent fw-semibold">Account Status</div>
+      <div class="card-body">
+        <p class="mb-2">
+          <strong>Account Type:</strong> <span class="badge bg-info">Email/Password</span>
+        </p>
+        <p class="mb-0">
+          <strong>Member Since:</strong> {{ current_user.created_at[:10] }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Session / privacy info -->
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-header bg-transparent fw-semibold">Privacy &amp; Sessions</div>
+      <div class="card-body">
+        <ul class="list-unstyled mb-0 small text-muted">
+          <li class="mb-2">&#x1F512; PhishGuard only stores your name, email, profile picture, and scan results.</li>
+          <li class="mb-2">&#x1F4C5; Sessions expire after 30 days of inactivity.</li>
+          <li class="mb-0">&#x1F6AA; You can sign out of all sessions by deleting your account and re-registering.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Danger zone -->
+    <div class="card shadow-sm border-danger border-2 mb-4">
+      <div class="card-header bg-danger bg-opacity-10 text-danger fw-semibold">
+        &#x26A0;&#xFE0F; Danger Zone
+      </div>
+      <div class="card-body">
+        <p class="mb-3 text-muted small">
+          Deleting your account is permanent. Your scan history attributed to your account
+          will be anonymised. This action cannot be undone.
+        </p>
+        <!-- Trigger modal -->
+        <button type="button" class="btn btn-outline-danger btn-sm"
+                data-bs-toggle="modal" data-bs-target="#deleteModal">
+          Delete my account
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Delete confirmation modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-danger">
+        <h5 class="modal-title text-danger" id="deleteModalLabel">
+          &#x26A0;&#xFE0F; Confirm Account Deletion
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to permanently delete your PhishGuard account:</p>
+        <p class="fw-semibold">{{ current_user.email | e }}</p>
+        <p class="text-muted small mb-0">This will remove your profile and deactivate your account. Scan records will remain anonymised in the analytics database.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form action="{{ url_for('auth.delete_account') }}" method="post" class="d-inline">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="btn btn-danger">Yes, delete my account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

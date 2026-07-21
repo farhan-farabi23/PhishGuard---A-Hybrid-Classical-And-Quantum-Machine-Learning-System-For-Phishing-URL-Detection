@@ -1,0 +1,117 @@
+﻿{% extends "base.html" %}
+
+{% block title %}My Profile — PhishGuard{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 col-lg-10" style="margin: 0 auto;">
+
+        <!-- User Header Card -->
+        <div class="profile-header card mb-4">
+            <div class="profile-avatar">{{ user.initials }}</div>
+            <div class="profile-info">
+                <h1 class="profile-name">{{ user.name }}</h1>
+                <p class="profile-email">{{ user.email }}</p>
+                <p class="profile-since">Member since {{ user.member_since }}</p>
+            </div>
+            <form method="POST" action="{{ url_for('auth.logout') }}" class="profile-actions" style="display: inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="nav-button">SIGN OUT</button>
+            </form>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Scans</div>
+                <div class="stat-value">{{ stats.total }}</div>
+            </div>
+            <div class="stat-card stat-card--danger">
+                <div class="stat-label">Phishing Detected</div>
+                <div class="stat-value">{{ stats.phishing }}</div>
+                <div class="stat-percent">{{ stats.phishing_pct }}%</div>
+            </div>
+            <div class="stat-card stat-card--success">
+                <div class="stat-label">Safe URLs</div>
+                <div class="stat-value">{{ stats.safe }}</div>
+            </div>
+        </div>
+
+        <!-- Date Filter -->
+        <div class="filter-section">
+            <div class="filter-presets">
+                <a href="{{ url_for('profile') }}" class="filter-btn{% if not date_from and not date_to %} active{% endif %}">All Time</a>
+                <a href="{{ url_for('profile', date_from=presets.this_month.from, date_to=presets.this_month.to) }}" class="filter-btn{% if date_from == presets.this_month.from %} active{% endif %}">This Month</a>
+                <a href="{{ url_for('profile', date_from=presets.last_7.from, date_to=presets.last_7.to) }}" class="filter-btn{% if date_from == presets.last_7.from %} active{% endif %}">Last 7 Days</a>
+                <a href="{{ url_for('profile', date_from=presets.last_30.from, date_to=presets.last_30.to) }}" class="filter-btn{% if date_from == presets.last_30.from %} active{% endif %}">Last 30 Days</a>
+            </div>
+            <form method="GET" action="{{ url_for('profile') }}" class="filter-form">
+                <input type="date" name="date_from" class="filter-input" value="{{ date_from or '' }}">
+                <span class="filter-to">to</span>
+                <input type="date" name="date_to" class="filter-input" value="{{ date_to or '' }}">
+                <button type="submit" class="btn btn-small">Apply</button>
+            </form>
+        </div>
+
+        <!-- Verdict Summary -->
+        {% if verdict_summary %}
+        <div class="summary-section">
+            <h2>Verdict Summary</h2>
+            <div class="summary-bars">
+                {% for item in verdict_summary %}
+                <div class="summary-item">
+                    <div class="summary-header">
+                        <span class="summary-label">{{ item.label }}</span>
+                        <span class="summary-count">{{ item.count }}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-{{ item.class }}" style="width: {{ item.percent }}%"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Recent Scans Table -->
+        <div class="scans-section">
+            <h2>Recent Scans</h2>
+            {% if scans %}
+            <div class="table-wrapper">
+                <table class="scans-table">
+                    <thead>
+                        <tr>
+                            <th>URL</th>
+                            <th>Verdict</th>
+                            <th>Confidence</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for scan in scans %}
+                        <tr class="scan-row scan-row--{{ scan.verdict }}">
+                            <td class="scan-url" title="{{ scan.url_full }}">{{ scan.url }}</td>
+                            <td class="scan-verdict">
+                                <span class="verdict-badge verdict-{{ scan.verdict }}">{{ scan.verdict_display }}</span>
+                            </td>
+                            <td class="scan-confidence">{{ scan.confidence }}</td>
+                            <td class="scan-timestamp">{{ scan.timestamp }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <p>No scans yet. <a href="{{ url_for('index') }}">Start scanning URLs</a></p>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+/* ──────────────────────────────────────────────────── */
+/* ERRORS.CSS — Error Page Styles                    */
+/* ──────────────────────────────────────────────────── */
+:root {
+  --color-bg: #0a1422;
+  --color-accent: #00d9ff;
+  --color-text: #ffffff;
+  --color-text-muted: #a0aec0;
+  --color-border: #1a3a4a;
+  --color-danger: #ff6b6b;
+}
+
+/* ── Error Container ────────────────────────────────– */
+.error-container {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.error-code {
+  color: var(--color-danger);
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.error-message {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  line-height: 1.8;
+}
+
+/* ── Responsive ────────────────────────────────────– */
+@media (max-width: 768px) {
+  .error-icon {
+    font-size: 3rem;
+  }
+
+  .error-code {
+    font-size: 1.8rem;
+  }
+
+  .error-message {
+    font-size: 1rem;
+  }
+
+  .error-container {
+    min-height: 50vh;
+  }
+}

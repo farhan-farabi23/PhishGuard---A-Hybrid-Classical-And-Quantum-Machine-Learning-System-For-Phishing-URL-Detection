@@ -1,0 +1,90 @@
+/* ──────────────────────────────────────────────────── */
+/* DASHBOARD.CSS — Analytics Dashboard Page Styles   */
+/* ──────────────────────────────────────────────────── */
+:root {
+  --color-bg: #0a1422;
+  --color-accent: #00d9ff;
+  --color-accent-dark: #0099cc;
+  --color-text: #ffffff;
+  --color-text-muted: #a0aec0;
+  --color-border: #1a3a4a;
+  --color-success: #4caf50;
+  --color-danger: #ff6b6b;
+}
+
+/* ── Dashboard Summary Cards ───────────────────────── */
+.dash-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.dash-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
+}
+
+.dash-card-icon {
+  font-size: 2rem;
+  line-height: 1.4;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.dash-card-label {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.dash-card-value {
+  color: var(--color-text);
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+/* ── Chart Container ───────────────────────────────── */
+/* Note: Universal .chart-container in style.css handles
+   responsive sizing and ResizeObserver loop prevention */
+
+/* ── Chart Colors ───────────────────────────────────– */
+.chart-success { color: var(--color-success) !important; }
+.chart-danger { color: var(--color-danger) !important; }
+.chart-accent { color: var(--color-accent) !important; }
+
+/* ── Table Styling ─────────────────────────────────── */
+.table-scroll-wrap {
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+.table-scroll-wrap thead.sticky-top {
+  position: sticky;
+  top: 0;
+  background: rgba(0, 217, 255, 0.05);
+  z-index: 10;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background: rgba(0, 217, 255, 0.02);
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .dash-card {
+    padding: 1rem;
+  }
+
+  .dash-card-icon {
+    font-size: 1.5rem;
+  }
+
+  .dash-card-value {
+    font-size: 1.5rem;
+  }
+}

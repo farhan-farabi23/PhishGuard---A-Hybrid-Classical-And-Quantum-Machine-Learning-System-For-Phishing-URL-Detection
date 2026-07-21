@@ -1,0 +1,20 @@
+[quantum] WARNING: torch unavailable (not installed or DLL error) — VQC model will be disabled.
+2026-07-02 16:47:30 [INFO] database.users: Auth tables ready
+2026-07-02 16:47:30 [INFO] __main__: Database initialised at C:\Users\RANON TRASH\Desktop\thesis_final_upgrade\phishing_site_root\webapp\phishguard.db
+2026-07-02 16:47:30 [INFO] models.loader: Loading data...
+2026-07-02 16:47:32 [INFO] models.loader: Fitting preprocessing pipeline...
+2026-07-02 16:47:35 [INFO] models.loader: knn accuracy: 0.8770
+2026-07-02 16:47:35 [INFO] models.loader: logreg accuracy: 0.8950
+2026-07-02 16:47:35 [INFO] models.loader: nb accuracy: 0.9030
+2026-07-02 16:47:39 [INFO] models.loader: svm accuracy: 0.8910
+2026-07-02 16:47:43 [INFO] models.loader: rf accuracy: 0.9090
+2026-07-02 16:47:49 [INFO] models.loader: mlp accuracy: 0.9140
+2026-07-02 16:47:50 [INFO] models.loader: QSVM: loaded 500 offline labels from disk.
+2026-07-02 16:47:50 [INFO] models.loader: QSVM: [183 142] support vectors
+2026-07-02 16:47:50 [INFO] models.loader: VQC skipped (torch unavailable).
+2026-07-02 16:47:50 [INFO] models.loader: All models ready.
+ * Serving Flask app 'app'
+ * Debug mode: off
+2026-07-02 16:47:50 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-07-02 16:47:50 [INFO] werkzeug: [33mPress CTRL+C to quit[0m

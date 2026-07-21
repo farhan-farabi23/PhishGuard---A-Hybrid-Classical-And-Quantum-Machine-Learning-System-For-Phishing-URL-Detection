@@ -1,0 +1,118 @@
+/* ──────────────────────────────────────────────────── */
+/* SETTINGS.CSS — Account Settings Page Styles       */
+/* ──────────────────────────────────────────────────── */
+:root {
+  --color-bg: #0a1422;
+  --color-accent: #00d9ff;
+  --color-text: #ffffff;
+  --color-text-muted: #a0aec0;
+  --color-border: #1a3a4a;
+  --color-danger: #ff6b6b;
+}
+
+/* ── Settings Card Section ──────────────────────────– */
+.settings-section {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  padding: 0;
+  overflow: hidden;
+}
+
+.settings-section:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
+}
+
+.settings-section .card-header {
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(0, 153, 204, 0.08));
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-accent);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 1.25rem;
+  margin: 0;
+}
+
+.settings-section .card-body {
+  padding: 1.5rem;
+}
+
+/* ── Info Text ──────────────────────────────────────– */
+.settings-info {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.settings-info strong {
+  color: var(--color-text);
+}
+
+/* ── Danger Zone ────────────────────────────────────– */
+.danger-zone {
+  background: rgba(255, 107, 107, 0.05);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.danger-zone .danger-zone-title {
+  color: var(--color-danger);
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.danger-zone p {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: var(--color-bg);
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+  background: #e53935;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+}
+
+/* ── Badge Styling ──────────────────────────────────– */
+.badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.badge-info {
+  background: rgba(0, 153, 255, 0.2);
+  color: var(--color-accent);
+}
+
+/* ── Responsive ────────────────────────────────────– */
+@media (max-width: 768px) {
+  .settings-section .card-body {
+    padding: 1rem;
+  }
+
+  .settings-section .card-header {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+}

@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Quantum Visualizer — PhishGuard{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/visualizer.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+  <div class="col-12">
+    <h2 class="mb-1">QUANTUM CIRCUIT VISUALIZER</h2>
+    <p class="text-muted mb-0">
+      Enter any URL to see how it is encoded into quantum angle parameters and processed
+      by the 4-qubit variational circuit.
+    </p>
+  </div>
+</div>
+
+<!-- URL Input -->
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="row g-2 align-items-end">
+      <div class="col-12 col-md-9">
+        <input type="text" id="vizUrlInput" class="form-control form-control-lg"
+               placeholder="https://example.com/path?query=value">
+        <div class="invalid-feedback">Please enter a URL.</div>
+      </div>
+      <div class="col-12 col-md-3">
+        <button id="vizBtn" class="btn btn-primary btn-lg" style="width: 100%;">
+          ⚛️ VISUALIZE
+        </button>
+      </div>
+    </div>
+    <div id="vizSpinner" class="d-none mt-2 text-muted small">
+      <span class="spinner-border" style="width: 1rem; height: 1rem; border-width: 2px;" role="status">
+        <span class="visually-hidden">Computing…</span>
+      </span>
+      Computing quantum angle encoding…
+    </div>
+    <div id="vizError" class="alert alert-danger d-none mt-2 py-2" role="alert"></div>
+  </div>
+</div>
+
+<!-- Results (hidden until first scan) -->
+<div id="vizResults" class="d-none">
+
+  <!-- Row: 3D Quantum Circuit Visualizer -->
+  <div class="row g-4 mb-4">
+    <div class="col-12 col-lg-8">
+      <div class="card h-100 shadow-sm">
+        <div class="card-header fw-semibold">
+          ⚛️ 3D QUANTUM CIRCUIT VISUALIZER
+          <span class="text-muted small ms-2">(Interactive — rotate &amp; zoom with mouse)</span>
+        </div>
+        <div class="card-body p-0">
+          <div id="canvas3dContainer" style="width:100%;height:400px;display:flex;align-items:center;justify-content:center;">
+            <div style="text-align:center;color:#00d9ff;font-family:monospace;">
+              <div style="font-size:2rem;margin-bottom:1rem;">⚛️</div>
+              <div>Loading 3D quantum circuit...</div>
+            </div>
+          </div>
+          <div class="row g-2 p-3">
+            <div class="col-auto" id="qubit3dLabels" style="display:flex;gap:1rem;flex-wrap:wrap;"></div>
+          </div>
+          <p class="text-muted small px-3 pb-3 mb-0">
+            <strong>4 Qubits as 3D Spheres:</strong> Each sphere represents a qubit. The color intensity shows the angle value (blue=low, red=high).
+            <strong>Lines connecting qubits:</strong> CNOT entangling gates that create quantum correlations.
+            <strong>Use your mouse:</strong> Click and drag to rotate, scroll to zoom, right-click to pan.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-header fw-semibold">📚 What You're Seeing</div>
+        <div class="card-body">
+          <div class="small text-muted">
+            <div class="mb-3">
+              <strong class="text-white d-block mb-1">🔵 Colored Spheres = Qubits</strong>
+              Your URL is encoded into 4 quantum bits (qubits). The color tells you the rotation angle:
+              <code class="d-block mt-1" style="font-size:0.75rem;">Blue (low) → Green (mid) → Red (high)</code>
+            </div>
+            <div class="mb-3">
+              <strong class="text-white d-block mb-1">🔗 Lines = Entanglement</strong>
+              CNOT gates create quantum "relationships" between qubits. When entangled, measuring one qubit instantly affects the others—that's quantum magic!
+            </div>
+            <div class="mb-3">
+              <strong class="text-white d-block mb-1">⚙️ 3 Layers</strong>
+              Each layer applies RY and RZ rotations, plus CNOT entanglement. More layers = more complex decision boundary.
+            </div>
+            <div class="mb-3">
+              <strong class="text-white d-block mb-1">📊 Why Quantum?</strong>
+              Quantum circuits can capture complex patterns in URL structure that classical ML misses—useful for phishing detection.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row: Angle chart + Circuit diagram -->
+  <div class="row g-4 mb-4">
+    <div class="col-12 col-lg-5">
+      <div class="card h-100">
+        <div class="card-header">
+          ANGLE ENCODING (2D VIEW)
+          <span class="text-muted small ms-2">[PCA → MinMaxScaler → [0, π]</span>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:200px;width:100%">
+            <canvas id="angleChart" aria-label="Bar chart: quantum angle encoding per qubit" role="img"></canvas>
+          </div>
+          <p class="text-muted small mt-3 mb-0">
+            Each bar is one qubit's rotation angle θᵢ ∈ [0, π].
+            Colour indicates magnitude: blue ≈ 0, red ≈ π.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <div class="card h-100 shadow-sm">
+        <div class="card-header fw-semibold">Circuit Architecture</div>
+        <div class="card-body p-2">
+          <div id="circuitDiagram"></div>
+          <p class="text-muted small mt-2 mb-0 px-2">
+            Each row is one qubit. AngleEmbedding encodes the URL;
+            three variational layers (RY · RZ · CNOT ring) learn the decision boundary;
+            Pauli-Z measurements produce the classification signal.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipeline steps -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header fw-semibold">How the URL becomes quantum angles — step by step</div>
+    <div class="card-body">
+      <div class="row" id="pipelineSteps"></div>
+    </div>
+  </div>
+
+  <!-- Angle table -->
+  <div class="card shadow-sm">
+    <div class="card-header fw-semibold">Angle Parameter Table</div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-sm table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Qubit</th>
+              <th>θ (rad)</th>
+              <th>θ (degrees)</th>
+              <th>Gate</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody id="angleTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /vizResults -->
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/canvas-3d-visualizer.js') }}"></script>
+<script src="{{ url_for('static', filename='js/visualizer.js') }}"></script>
+{% endblock %}

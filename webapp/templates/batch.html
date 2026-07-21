@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Batch Scanner — PhishGuard{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/batch.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12 col-lg-10" style="margin: 0 auto;">
+
+    <!-- ── Upload Form ── -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="card-title mb-1">BATCH SCANNER</h2>
+        <p class="text-muted mb-3">
+          Upload a CSV file with URLs to scan all of them using the 6 fast classical models.
+          The CSV must have a column named <code>url</code>, <code>link</code>, or <code>address</code>.
+        </p>
+
+        <div class="row g-3 align-items-end">
+          <div class="col-12 col-sm-6">
+            <label for="batchFile" class="form-label fw-bold">CSV FILE</label>
+            <input id="batchFile" type="file" class="form-control" accept=".csv"
+                   aria-describedby="batchFileHelp">
+          </div>
+          <div class="col-12 col-sm-3">
+            <label for="batchMax" class="form-label fw-bold">MAX URLS</label>
+            <input id="batchMax" type="number" class="form-control" value="1000" min="1" max="1000"
+                   aria-describedby="batchFileHelp">
+          </div>
+          <div class="col-12 col-sm-3">
+            <button id="batchBtn" class="btn btn-primary btn-lg" type="button" style="width: 100%;">SCAN ALL</button>
+          </div>
+        </div>
+        <div id="batchError" class="alert alert-danger d-none mt-2 py-2" role="alert"></div>
+
+        <div class="mt-2">
+          <small id="batchFileHelp" class="text-muted">
+            Quantum models are skipped in batch mode for speed.
+            Cap: 1,000 URLs per upload. Maximum file size: 5 MB.
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Spinner ── -->
+    <div id="batchSpinner" class="text-center py-5 d-none" aria-live="polite" aria-busy="true">
+      <div class="spinner-border" role="status" style="width:3rem;height:3rem;">
+        <span class="visually-hidden">Loading…</span>
+      </div>
+      <p class="mt-3 text-muted" id="batchSpinnerMsg">Scanning URLs…</p>
+    </div>
+
+    <!-- ── Results (hidden until scan) ── -->
+    <div id="batchResults" class="d-none">
+
+      <!-- Summary Cards -->
+      <div class="row g-3 mb-4" id="summaryCards"></div>
+
+      <!-- Charts -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-header fw-semibold">Safe vs Phishing</div>
+            <div class="card-body d-flex align-items-center justify-content-center">
+              <div class="chart-container" style="height:220px;width:100%">
+                <canvas id="pieChart" aria-label="Doughnut chart: safe vs phishing URL counts" role="img"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card shadow-sm h-100">
+            <div class="card-header fw-semibold">Phishing Detections per Model</div>
+            <div class="card-body">
+              <div class="chart-container" style="height:220px">
+                <canvas id="barChart" aria-label="Bar chart: phishing detections per model" role="img"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top TLDs -->
+      <div class="card shadow-sm mb-4" id="tldCard">
+        <div class="card-header fw-semibold">Most Common TLDs in Upload</div>
+        <div class="card-body">
+          <div id="tldBadges"></div>
+        </div>
+      </div>
+
+      <!-- Results Table -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span class="fw-semibold">URL Results</span>
+          <button id="downloadBtn" class="btn btn-sm btn-outline-secondary">
+            ⬇ Download security_report.csv
+          </button>
+        </div>
+        <div class="table-responsive table-scroll-wrap" style="max-height:480px; overflow-y:auto;"
+             role="region" aria-label="URL scan results table">
+          <table class="table table-sm table-hover table-striped mb-0">
+            <thead class="table-dark sticky-top">
+              <tr>
+                <th>#</th>
+                <th>URL</th>
+                <th>Verdict</th>
+                <th>Avg Confidence</th>
+                <th>Votes</th>
+              </tr>
+            </thead>
+            <tbody id="batchTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /batchResults -->
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/batch.js') }}"></script>
+{% endblock %}

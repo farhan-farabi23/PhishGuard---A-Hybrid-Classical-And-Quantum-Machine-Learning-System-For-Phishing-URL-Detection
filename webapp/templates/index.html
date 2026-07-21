@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}URL Analyser — PhishGuard{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12 col-lg-9" style="margin-left: auto; margin-right: auto;">
+
+    <!-- ── Scan Form ── -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="card-title mb-1">URL ANALYSER</h2>
+        <p class="text-muted mb-3">Scan URLs against 9 advanced ML models to detect phishing threats</p>
+
+        <label for="urlInput" class="visually-hidden">URL to scan</label>
+        <div class="input-group mb-3">
+          <input id="urlInput" type="text" class="form-control"
+                 placeholder="https://example.com/login" autocomplete="off"
+                 aria-label="URL to scan">
+          <button id="scanBtn" class="btn btn-primary btn-lg" type="button">SCAN</button>
+        </div>
+        <div id="scanError" class="alert alert-danger d-none mt-2 py-2" role="alert"></div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="quantumToggle" checked>
+          <label class="form-check-label text-muted small" for="quantumToggle">
+            Include quantum models <span class="badge badge-secondary">+30s</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Spinner ── -->
+    <div id="scanSpinner" class="text-center py-5 d-none" aria-live="polite" aria-busy="true">
+      <div class="spinner-border" role="status" style="width:3rem;height:3rem;">
+        <span class="visually-hidden">Loading…</span>
+      </div>
+      <p class="mt-3 text-muted" id="spinnerMsg">Running models…</p>
+    </div>
+
+    <!-- ── Results (hidden until scan) ── -->
+    <div id="resultsSection" class="d-none" aria-live="polite">
+
+      <!-- Verdict Banner -->
+      <div id="verdictBanner" class="verdict-banner mb-4 p-4 rounded text-center">
+        <div class="verdict-icon fs-1" id="verdictIcon"></div>
+        <div class="verdict-text fs-2 fw-bold mt-1" id="verdictText"></div>
+        <div class="verdict-sub mt-1" id="verdictSub"></div>
+      </div>
+
+      <!-- URL Dissector -->
+      <div class="card mb-4">
+        <div class="card-header">URL BREAKDOWN</div>
+        <div class="card-body">
+          <div id="urlDissector" class="url-dissector font-monospace"></div>
+          <div id="suspicionReasons" class="mt-2 small text-muted"></div>
+        </div>
+      </div>
+
+      <!-- Two-column: Features + Model Table -->
+      <div class="row g-4 mb-4">
+
+        <!-- URL Features Panel -->
+        <div class="col-12 col-md-4">
+          <div class="card h-100">
+            <div class="card-header">URL FEATURES</div>
+            <ul class="list-group list-group-flush" id="featureList"></ul>
+          </div>
+        </div>
+
+        <!-- Model Results Table -->
+        <div class="col-12 col-md-8">
+          <div class="card h-100">
+            <div class="card-header">MODEL VERDICTS</div>
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Model</th>
+                    <th>Type</th>
+                    <th>Verdict</th>
+                    <th>Confidence</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody id="modelTableBody"></tbody>
+                <tfoot id="modelTableFoot" class="table-secondary fw-bold"></tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /row -->
+
+    </div><!-- /resultsSection -->
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
+{% endblock %}

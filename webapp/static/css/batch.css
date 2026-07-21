@@ -1,0 +1,90 @@
+/* ──────────────────────────────────────────────────── */
+/* BATCH.CSS — Batch Scanner Page Styles             */
+/* ──────────────────────────────────────────────────── */
+:root {
+  --color-bg: #0a1422;
+  --color-accent: #00d9ff;
+  --color-text: #ffffff;
+  --color-text-muted: #a0aec0;
+  --color-border: #1a3a4a;
+  --color-success: #4caf50;
+  --color-danger: #ff6b6b;
+}
+
+/* ── Summary Cards ─────────────────────────────────── */
+.batch-summary-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.batch-summary-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
+}
+
+.batch-summary-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.batch-summary-label {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── Results Table Styles ──────────────────────────── */
+.table-danger-subtle {
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+.table-success-subtle {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+/* Sticky thead inside scrollable container */
+.table-scroll-wrap {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  overflow-y: auto;
+}
+
+.table-scroll-wrap thead.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: rgba(0, 217, 255, 0.05);
+}
+
+.table-scroll-wrap thead.sticky-top th {
+  background: rgba(0, 217, 255, 0.05);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ── Progress bar styling ──────────────────────────– */
+.progress {
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  height: 8px;
+}
+
+.progress-bar {
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+.progress-bar.bg-danger {
+  background: var(--color-danger) !important;
+}
+
+.progress-bar.bg-success {
+  background: var(--color-success) !important;
+}

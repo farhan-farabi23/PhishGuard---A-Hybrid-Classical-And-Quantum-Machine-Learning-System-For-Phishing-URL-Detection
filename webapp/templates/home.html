@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}PhishGuard — Phishing URL Detection{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="hero-section py-5 text-center">
+  <div class="container">
+    <div style="font-size: 4rem; margin-bottom: 1rem;">🛡️</div>
+    <h1 class="display-4 fw-bold mb-3">PHISHGUARD</h1>
+    <p class="lead text-muted mb-4">
+      Detect phishing and malicious URLs using advanced machine learning and quantum computing.
+    </p>
+
+    <div class="d-flex gap-2 justify-content-center flex-wrap">
+      <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">
+        GET STARTED
+      </a>
+      <a href="{{ url_for('auth.login') }}" class="btn btn-secondary btn-lg">
+        SIGN IN
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row g-4 mb-5">
+    <!-- Feature 1 -->
+    <div class="col-12 col-md-4">
+      <div class="card h-100">
+        <div class="card-body text-center p-4">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔍</div>
+          <h5 class="fw-bold mb-2">QUICK SCAN</h5>
+          <p class="text-muted small">
+            Analyze any URL in seconds with our advanced AI models to detect phishing and malicious content.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="col-12 col-md-4">
+      <div class="card h-100">
+        <div class="card-body text-center p-4">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">📋</div>
+          <h5 class="fw-bold mb-2">BATCH SCANNING</h5>
+          <p class="text-muted small">
+            Upload CSV files to scan multiple URLs at once. Perfect for security research and analysis.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="col-12 col-md-4">
+      <div class="card h-100">
+        <div class="card-body text-center p-4">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+          <h5 class="fw-bold mb-2">DASHBOARD</h5>
+          <p class="text-muted small">
+            View detailed scan history, statistics, and trends. Track phishing attempts over time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How it Works -->
+  <div class="row mb-5">
+    <div class="col-12 col-lg-8" style="margin: 0 auto;">
+      <h2 class="text-center fw-bold mb-4">HOW IT WORKS</h2>
+
+      <div class="row g-3">
+        <div class="col-12 col-md-4 text-center">
+          <div class="mb-3">
+            <span class="badge" style="background: var(--color-accent); color: var(--color-bg); font-size: 1.2rem; width: 50px; height: 50px; line-height: 34px; display: inline-flex; align-items: center; justify-content: center;">1</span>
+          </div>
+          <h6 class="fw-bold">CREATE ACCOUNT</h6>
+          <p class="text-muted small">Sign up with your email to get started</p>
+        </div>
+
+        <div class="col-12 col-md-4 text-center">
+          <div class="mb-3">
+            <span class="badge" style="background: var(--color-accent); color: var(--color-bg); font-size: 1.2rem; width: 50px; height: 50px; line-height: 34px; display: inline-flex; align-items: center; justify-content: center;">2</span>
+          </div>
+          <h6 class="fw-bold">SCAN URLs</h6>
+          <p class="text-muted small">Enter or upload URLs for analysis</p>
+        </div>
+
+        <div class="col-12 col-md-4 text-center">
+          <div class="mb-3">
+            <span class="badge" style="background: var(--color-accent); color: var(--color-bg); font-size: 1.2rem; width: 50px; height: 50px; line-height: 34px; display: inline-flex; align-items: center; justify-content: center;">3</span>
+          </div>
+          <h6 class="fw-bold">GET RESULTS</h6>
+          <p class="text-muted small">Instant detection results with confidence scores</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technology -->
+  <div class="card mb-5">
+    <div class="card-body p-4">
+      <h3 class="fw-bold mb-3">ADVANCED DETECTION</h3>
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+          <h6 class="fw-bold" style="color: var(--color-accent);">CLASSICAL MODELS</h6>
+          <p class="text-muted small">
+            KNN, Logistic Regression, Naive Bayes, SVM, Random Forest, and Neural Networks for reliable detection.
+          </p>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+          <h6 class="fw-bold" style="color: var(--color-accent);">QUANTUM MODELS</h6>
+          <p class="text-muted small">
+            Cutting-edge quantum machine learning algorithms for advanced pattern recognition.
+          </p>
+        </div>
+      </div>
+      <p class="text-muted small mb-0">
+        <strong>Ensemble Voting:</strong> Multiple models vote on each URL for maximum accuracy.
+      </p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="text-center mb-5">
+    <h3 class="fw-bold mb-3">Ready to protect yourself?</h3>
+    <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">
+      CREATE YOUR ACCOUNT NOW
+    </a>
+  </div>
+</div>
+{% endblock %}

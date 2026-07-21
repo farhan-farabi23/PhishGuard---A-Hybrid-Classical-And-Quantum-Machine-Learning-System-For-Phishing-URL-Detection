@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PhishGuard{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+  <!-- Background orbs for atmosphere -->
+  <div class="background-orbs">
+    <div class="orb orb-left"></div>
+    <div class="orb orb-right"></div>
+  </div>
+
+  <!-- Skip-to-content for keyboard users -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="navbar-container">
+      <div class="navbar-logo">
+        <span class="logo-icon">🛡️</span>
+        <a href="{{ url_for('index') }}" class="logo-text">PHISHGUARD</a>
+      </div>
+
+      {% if current_user.is_authenticated %}
+        <!-- Authenticated: Show feature menu -->
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="{{ url_for('index') }}" class="nav-link {% if request.path == '/' %}active{% endif %}">HOME</a></li>
+          <li><a href="/analyser" class="nav-link {% if request.path == '/analyser' %}active{% endif %}">ANALYSER</a></li>
+          <li><a href="/batch" class="nav-link {% if request.path == '/batch' %}active{% endif %}">BATCH</a></li>
+          <li><a href="/dashboard" class="nav-link {% if request.path == '/dashboard' %}active{% endif %}">DASHBOARD</a></li>
+          <li><a href="/visualizer" class="nav-link {% if request.path == '/visualizer' %}active{% endif %}">VISUALIZER</a></li>
+        </ul>
+
+        <div class="nav-auth">
+          <span class="user-avatar" title="{{ current_user.name }}">{{ current_user.name[0].upper() }}</span>
+          <form action="{{ url_for('auth.logout') }}" method="post" style="display: inline;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="nav-button">SIGN OUT</button>
+          </form>
+        </div>
+      {% else %}
+        <!-- Unauthenticated: Show minimal menu like landing page -->
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="/#services" class="nav-link">SERVICES</a></li>
+          <li><a href="/#about" class="nav-link">ABOUT</a></li>
+          <li><a href="/#features" class="nav-link">FEATURES</a></li>
+        </ul>
+
+        <div class="nav-auth">
+          <a href="{{ url_for('auth.login') }}" class="nav-link">SIGN IN</a>
+          <a href="{{ url_for('auth.register') }}" class="btn btn-primary">REGISTER</a>
+        </div>
+      {% endif %}
+    </div>
+  </nav>
+
+  <!-- ── Flash messages (auto-dismiss after 5 s) ── -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="container" id="flash-container">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible"
+               role="alert"
+               data-auto-dismiss="5000">
+            <span class="alert-message">{{ message | e }}</span>
+            <button type="button" class="alert-close" aria-label="Close">&times;</button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- ── Page content ── -->
+  <main id="main-content" class="container main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>PHISHGUARD</h4>
+        <p>Advanced cybersecurity through AI and quantum computing</p>
+      </div>
+      <div class="footer-section">
+        <h4>QUICK LINKS</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('analyser') }}">Analyser</a></li>
+            <li><a href="{{ url_for('batch') }}">Batch Scanner</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+          {% else %}
+            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+            <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>SUPPORT</h4>
+        <p>Email: support@phishguard.io</p>
+        <p>24/7 Protection</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 PhishGuard. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Chart.js for dashboard -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
+          integrity="sha384-JUh163oCRItcbPme8pYnROHQMC6fNKTBWtRG3I3I0erJkzNgL7uxKlNwcrcFKeqF"
+          crossorigin="anonymous"></script>
+
+  <!-- Shared utilities -->
+  <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+
+  <!-- Auto-dismiss flash messages -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Handle auto-dismiss timeout
+    var alerts = document.querySelectorAll('[data-auto-dismiss]');
+    alerts.forEach(function (alert) {
+      var ms = parseInt(alert.getAttribute('data-auto-dismiss'), 10) || 5000;
+      setTimeout(function () {
+        if (alert && alert.parentNode) {
+          alert.remove();
+        }
+      }, ms);
+    });
+  });
+
+  // Handle close button click - use event delegation
+  document.addEventListener('click', function (event) {
+    var closeBtn = event.target.closest('.alert-close');
+    if (closeBtn) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      var alert = closeBtn.closest('.alert');
+      if (alert) {
+        alert.remove();
+      }
+      return false;
+    }
+  }, false);
+  </script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

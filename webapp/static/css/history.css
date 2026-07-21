@@ -1,0 +1,113 @@
+/* ──────────────────────────────────────────────────── */
+/* HISTORY.CSS — Scan History Page Styles            */
+/* ──────────────────────────────────────────────────── */
+:root {
+  --color-bg: #0a1422;
+  --color-accent: #00d9ff;
+  --color-text: #ffffff;
+  --color-text-muted: #a0aec0;
+  --color-border: #1a3a4a;
+  --color-success: #4caf50;
+  --color-danger: #ff6b6b;
+}
+
+/* ── Summary Cards ─────────────────────────────────– */
+.summary-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  text-align: center;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.summary-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
+}
+
+.summary-card.danger-card {
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+.summary-card.danger-card:hover {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 30px rgba(255, 107, 107, 0.15);
+}
+
+.summary-card.success-card {
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.summary-card.success-card:hover {
+  border-color: var(--color-success);
+  box-shadow: 0 0 30px rgba(76, 175, 80, 0.15);
+}
+
+.summary-value {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.summary-value.danger {
+  color: var(--color-danger);
+}
+
+.summary-value.success {
+  color: var(--color-success);
+}
+
+.summary-value.accent {
+  color: var(--color-accent);
+}
+
+.summary-label {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── History Table ─────────────────────────────────– */
+.history-table-scroll {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  overflow-y: auto;
+}
+
+.history-table-scroll thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(0, 217, 255, 0.05);
+}
+
+.history-table-scroll tbody tr:hover {
+  background: rgba(0, 217, 255, 0.05);
+}
+
+/* ── URL Cell Truncation ────────────────────────────– */
+.url-cell {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+/* ── Responsive ────────────────────────────────────– */
+@media (max-width: 768px) {
+  .summary-card {
+    padding: 1rem;
+  }
+
+  .summary-value {
+    font-size: 1.5rem;
+  }
+
+  .url-cell {
+    max-width: 150px;
+  }
+}
